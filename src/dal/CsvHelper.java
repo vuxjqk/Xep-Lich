@@ -22,9 +22,8 @@ public class CsvHelper {
 
     public static <T> List<T> readCsv(String filePath, Function<String[], T> mapper) {
         try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
-            List<String[]> allRows = reader.readAll();
-            allRows.remove(0);
-            return allRows.stream()
+            return reader.readAll().stream()
+                    .skip(1)
                     .map(mapper)
                     .collect(Collectors.toList());
         } catch (IOException | CsvException e) {

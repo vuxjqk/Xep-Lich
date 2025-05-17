@@ -20,18 +20,26 @@ public class UserRepository {
 
         return CsvHelper.readCsv("data/users.csv", values -> {
             int userId = Integer.parseInt(values[0]);
+
             Doctor doctor = doctors.stream()
                     .filter(d -> d.id() == userId)
                     .findFirst()
                     .orElse(null);
 
-            return new User(
-                    userId,
-                    values[1],
-                    values[2],
-                    values[3],
-                    doctor
-            );
+            return new User(userId, values[1], values[2], values[3], doctor);
         });
+    }
+
+    public static void saveUsers(List<User> users) {
+        CsvHelper.writeCsv(
+                "data/users.csv",
+                new String[]{"UserId", "Username", "Password", "Role"},
+                users,
+                user -> new String[]{
+                    String.valueOf(user.id()),
+                    user.username(),
+                    user.password(),
+                    user.role()
+                });
     }
 }

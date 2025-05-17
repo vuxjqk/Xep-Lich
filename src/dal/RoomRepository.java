@@ -19,4 +19,16 @@ public class RoomRepository {
                 values[1]
         ));
     }
+
+    public static void saveRooms(List<Room> rooms) {
+        CsvHelper.writeCsv(
+                "data/rooms.csv",
+                new String[]{"RoomId", "RoomName"},
+                rooms,
+                room -> new String[]{
+                    String.valueOf(room.id()),
+                    room.name()
+                }
+        );
+    }
 }

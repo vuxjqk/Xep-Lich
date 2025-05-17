@@ -9,7 +9,6 @@ import bll.RoomManager;
 import dto.Day;
 import dto.Doctor;
 import dto.Room;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,11 +18,11 @@ import java.util.stream.Collectors;
  * @author PC
  */
 public class DoctorRepository {
-    
+
     public static List<Doctor> loadDoctors() {
         List<Room> rooms = RoomManager.getRooms();
         List<Day> days = DayManager.getDays();
-        
+
         return CsvHelper.readCsv("data/doctors.csv", values -> {
             List<Room> roomsAllowed = Arrays.stream(values[2].split(" "))
                     .map(Integer::parseInt)
@@ -33,22 +32,20 @@ public class DoctorRepository {
                                     .findFirst()
                                     .orElse(null)
                     )
-                    .toList();
-            
+                    .collect(Collectors.toList());
+
             List<Day> daysOff = values[3].isEmpty()
-                    ? new ArrayList<>()
-                    : new ArrayList<>(
-                            Arrays.stream(values[3].split(" "))
-                                    .map(Integer::parseInt)
-                                    .map(
-                                            id -> days.stream()
-                                                    .filter(day -> day.id() == id)
-                                                    .findFirst()
-                                                    .orElse(null)
-                                    )
-                                    .toList()
-                    );
-            
+                    ? List.of()
+                    : Arrays.stream(values[3].split(" "))
+                            .map(Integer::parseInt)
+                            .map(
+                                    id -> days.stream()
+                                            .filter(day -> day.id() == id)
+                                            .findFirst()
+                                            .orElse(null)
+                            )
+                            .collect(Collectors.toList());
+
             return new Doctor(
                     Integer.parseInt(values[0]),
                     values[1],
@@ -57,7 +54,7 @@ public class DoctorRepository {
             );
         });
     }
-    
+
     public static void saveDoctors(List<Doctor> doctors) {
         CsvHelper.writeCsv(
                 "data/doctors.csv",
