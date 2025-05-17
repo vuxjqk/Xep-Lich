@@ -12,10 +12,10 @@ import java.util.Random;
  */
 public class Scheduler {
     
-    private GeneticAlgorithm ga;
+    private final GeneticAlgorithm ga;
     
     public Scheduler() {
-        ga = new GeneticAlgorithm(DoctorManager.getDoctors(), RoomManager.getRooms(), DayManager.getDays(),
+        ga = new GeneticAlgorithm(DoctorManager.getDoctors(), RoomManager.getRooms(), DayManager.getCurrentDays(),
                 200, 2000, 3, 0.8, 0.2, new Random());
     }
     

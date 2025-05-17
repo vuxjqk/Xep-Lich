@@ -22,7 +22,7 @@ public class ScheduleRepository {
     public static List<Schedule> loadSchedules() {
         List<Doctor> doctors = DoctorManager.getDoctors();
         List<Room> rooms = RoomManager.getRooms();
-        List<Day> days = DayManager.getDays();
+        List<Day> days = DayManager.getCurrentDays();
 
         return CsvHelper.readCsv("data/schedules.csv", values -> {
             int doctorId = Integer.parseInt(values[0]);

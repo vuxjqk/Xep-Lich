@@ -47,7 +47,7 @@ public class pnlDaysOff extends javax.swing.JPanel {
     public void addNotify() {
         super.addNotify();
 
-        YearMonth ym = YearMonthManager.getYearMonth1();
+        YearMonth ym = YearMonthManager.getNextYearMonth();
         int daysInMonth = ym.lengthOfMonth();
 
         lblDaysOff.setText(String.format("Chọn các ngày nghỉ cho tháng %d năm %d", ym.getMonthValue(), ym.getYear()));
@@ -293,7 +293,7 @@ public class pnlDaysOff extends javax.swing.JPanel {
 
         doctor.daysOff().clear();
         doctor.daysOff().addAll(
-                DayManager.getDays().stream()
+                DayManager.getNextDays().stream()
                         .filter(day -> daysOff.contains(day.id()))
                         .toList()
         );

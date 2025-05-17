@@ -22,24 +22,23 @@ public class YearMonthManager {
         }
     }
 
-    public static YearMonth getYearMonth0() {
+    public static YearMonth getCurrentYearMonth() {
         loadYearMonth();
         return yms.get(0);
-
     }
 
-    public static YearMonth getYearMonth1() {
+    public static YearMonth getNextYearMonth() {
         loadYearMonth();
         return yms.get(1);
     }
 
-    public static void setYearMonth0(YearMonth ym) {
+    public static void setCurrentYearMonth(YearMonth ym) {
         loadYearMonth();
         yms.set(0, ym);
         YearMonthRepository.saveYearMonth(yms);
     }
 
-    public static void setYearMonth1(YearMonth ym) {
+    public static void setNextYearMonth(YearMonth ym) {
         loadYearMonth();
         yms.set(1, ym);
         YearMonthRepository.saveYearMonth(yms);

@@ -20,7 +20,7 @@ public class pnlSchedule extends javax.swing.JPanel {
     private YearMonth ym;
     
     private void lblCurrentLoad() {
-        YearMonth ym0 = YearMonthManager.getYearMonth0();
+        YearMonth ym0 = YearMonthManager.getCurrentYearMonth();
         lblCurrent.setText(String.format("Lịch trực hiện tại tháng %d năm %d", ym0.getMonthValue(), ym0.getYear()));
     }
     
@@ -33,7 +33,7 @@ public class pnlSchedule extends javax.swing.JPanel {
      */
     public pnlSchedule() {
         initComponents();
-        ym = YearMonthManager.getYearMonth1();
+        ym = YearMonthManager.getNextYearMonth();
     }
     
     @Override
@@ -192,7 +192,7 @@ public class pnlSchedule extends javax.swing.JPanel {
         // TODO add your handling code here:
         try {
             ym = DateUtils.parseYearMonth(txtYear.getText(), txtMonth.getText());
-            YearMonthManager.setYearMonth1(ym);
+            YearMonthManager.setNextYearMonth(ym);
             DoctorManager.getDoctors().forEach(doctor -> doctor.daysOff().clear());
             
             JOptionPane.showMessageDialog(
@@ -211,7 +211,7 @@ public class pnlSchedule extends javax.swing.JPanel {
 
     private void btnRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRunActionPerformed
         // TODO add your handling code here:
-        YearMonthManager.setYearMonth0(ym);
+        YearMonthManager.setCurrentYearMonth(ym);
         
         Scheduler scheduler = new Scheduler();
         scheduler.runGeneticAlgorithm();

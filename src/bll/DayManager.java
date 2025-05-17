@@ -15,16 +15,28 @@ import java.util.List;
  */
 public class DayManager {
 
-    private static List<Day> days;
+    private static List<Day> currentDays;
+    private static List<Day> nextDays;
 
-    public static List<Day> getDays() {
-        if (days == null) {
-            YearMonth ym = YearMonthManager.getYearMonth0();
+    public static List<Day> getCurrentDays() {
+        if (currentDays == null) {
+            YearMonth ym = YearMonthManager.getCurrentYearMonth();
             List<LocalDate> dates = DateUtils.getDatesInMonth(ym.getYear(), ym.getMonthValue());
-            days = dates.stream()
+            currentDays = dates.stream()
                     .map(date -> new Day(date.getDayOfMonth(), date))
                     .toList();
         }
-        return days;
+        return currentDays;
+    }
+
+    public static List<Day> getNextDays() {
+        if (nextDays == null) {
+            YearMonth ym = YearMonthManager.getNextYearMonth();
+            List<LocalDate> dates = DateUtils.getDatesInMonth(ym.getYear(), ym.getMonthValue());
+            nextDays = dates.stream()
+                    .map(date -> new Day(date.getDayOfMonth(), date))
+                    .toList();
+        }
+        return nextDays;
     }
 }

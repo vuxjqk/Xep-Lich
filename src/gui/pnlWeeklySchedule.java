@@ -24,7 +24,7 @@ public class pnlWeeklySchedule extends javax.swing.JPanel {
     private int weekIndex;
 
     private void tbl_lblLoad() {
-        YearMonth ym = YearMonthManager.getYearMonth0();
+        YearMonth ym = YearMonthManager.getCurrentYearMonth();
         LocalDate weekStartDate = DateUtils.getWeekStartDate(ym.getYear(), ym.getMonthValue(), weekIndex);
         Object[] rowDates = ScheduleManager.getDatesForWeek(weekStartDate);
 

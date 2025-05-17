@@ -22,4 +22,9 @@ public class RoomManager {
         }
         return rooms;
     }
+
+    public static void setRooms(List<Room> newRooms) {
+        RoomRepository.saveRooms(rooms);
+        rooms = newRooms;
+    }
 }

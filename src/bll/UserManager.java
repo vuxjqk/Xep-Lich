@@ -22,4 +22,9 @@ public class UserManager {
         }
         return users;
     }
+
+    public static void setUsers(List<User> newUsers) {
+        UserRepository.saveUsers(newUsers);
+        users = newUsers;
+    }
 }

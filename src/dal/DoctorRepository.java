@@ -9,6 +9,7 @@ import bll.RoomManager;
 import dto.Day;
 import dto.Doctor;
 import dto.Room;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,7 +22,7 @@ public class DoctorRepository {
 
     public static List<Doctor> loadDoctors() {
         List<Room> rooms = RoomManager.getRooms();
-        List<Day> days = DayManager.getDays();
+        List<Day> days = DayManager.getNextDays();
 
         return CsvHelper.readCsv("data/doctors.csv", values -> {
             List<Room> roomsAllowed = Arrays.stream(values[2].split(" "))
@@ -35,7 +36,7 @@ public class DoctorRepository {
                     .collect(Collectors.toList());
 
             List<Day> daysOff = values[3].isEmpty()
-                    ? List.of()
+                    ? new ArrayList<>()
                     : Arrays.stream(values[3].split(" "))
                             .map(Integer::parseInt)
                             .map(
